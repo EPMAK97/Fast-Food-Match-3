@@ -9,12 +9,12 @@ body {
 
 .gameField {
     position: absolute;
-    background-color: #F4EDD0;
+    background-color: #fef190;
     border:  3px outset darkred;
     vertical-align: bottom;
     width: 500px;
     height: 500px;
-    left: 600px;
+    left: 650px;
     top: 155px;
     cursor: pointer;
 }
@@ -30,38 +30,49 @@ body {
 
 .reset_button {
     background-image: url("images/b1.png");
-    left: 38px;
+    left: 100px;
 }
 
 .hint_button {
     background-image: url("images/b2.png");
-    left: 155px;
+    left: 200px;
 }
 
 .ai_button {
     background-image: url("images/b3.png");
-    left: 275px;
+    left: 300px;
 }
 
 .active_ai_button{
     background-image: url("images/actb3.png");
-    left: 275px;
+    left: 300px;
 }
 
 #score {
-    position : absolute;
-    top: 615px;
+    position : relative;
+    top: 560px;
     left: 450px;
-    font : 30px Verdana;
+    font: 45px brush script mt;
     color: #F4EDD0;
 }
 
 #score_title {
-    position : absolute;
-    top: 570px;
+    position : relative;
+    top: 580px;
     left: 420px;
-    font : 30px Verdana;
+    font : 60px brush script mt;
     color: #F4EDD0;
+}
+
+#borderTimer {
+    position: absolute;
+    background-color: darkred;
+    border-width: 10px;
+    border-radius: 30px;
+    width: 1060px;
+    height: 42px;
+    left: 85px;
+    top: 75px;
 }
 
 #LineTimer {

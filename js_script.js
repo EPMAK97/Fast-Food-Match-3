@@ -61,6 +61,7 @@ window.onload = function() {
 
     function init() {
         canvas.addEventListener("mousedown", onMouseDown);
+        canvas.addEventListener("mouseup", onMouseUp);
         for (var i=0; i<columns; i++) {
             tiles[i] = [];
             for (var j=0; j<rows; j++) {
@@ -157,7 +158,7 @@ window.onload = function() {
         context.fillRect(1, 1, canvas.width-2, canvas.height-2);
 
         var field_width = columns * tilewidth;
-        var field_height = rows * tileheight;
+        var field_height = rows * tileheight;   
 
         drawTiles();
         if (showmoves && matches.length <= 0 && gamestate == 'waiting') {
@@ -170,12 +171,18 @@ window.onload = function() {
             showmoves = false;
             context.fillStyle = "rgba(255, 165, 100, 0.9)";
             context.fillRect(1, 1, canvas.width-2, canvas.height-2);
-            context.fillStyle = "#ffffff";
-            context.font = "24px ms sans serif";
+            context.fillStyle = "Black";
+            context.clearRect(170, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(170, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(171, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(172, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(173, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(174, 186, canvas.width-340, canvas.height-364);
+            context.font = "24px Comic Sans MS";
             textdim = context.measureText("Game Over!");
-            context.fillText("Game Over!", (field_width - textdim.width)/2, field_height / 2 + 10);
+            context.fillText("Game Over!", (field_width - textdim.width)/2 + 2, field_height / 2 - 2);
             textdim = context.measureText("Очки: " + score.toString());
-            context.fillText("Очки: " + score.toString(), (field_width - textdim.width)/2, field_height / 2 + 140);
+            context.fillText("Очки: " + score.toString(), (field_width - textdim.width)/2, field_height / 2 + 30);
         }
     }
     
@@ -444,32 +451,38 @@ window.onload = function() {
         }
         return { x: -1, y: -1};
     }
+    
     var column_new = -1, row_new = -1;
-
+    var mdown;
     function onMouseDown(e) {
-        if (!gameover){
-        var pos = getMousePos(canvas, e);
-        var mt = getMouseTile(pos);
-
-        var column_old = mt.x;
-        var row_old = mt.y;
-
-        if ((column_old != column_new) || (row_old != row_new) || (column_new != -1 ) || (row_new != -1) || (column_old != -1 ) || (row_old != -1)) {
-            if (Math.abs(row_old - row_new) + Math.abs(column_old - column_new) == 1) {
-                animationSwap(column_old, row_old, column_new, row_new);
-                if (findMatches()) {
-                    resolveMatches();
-                }
-                else
-                    animationSwap(column_old, row_old, column_new, row_new);
-                column_new = -1;
-                row_new = -1;
-                return;
-            }
-        }
-        column_new = column_old;
-        row_new = row_old;
+       mdown = getMouseTile(getMousePos(canvas, e));
     }
+    function onMouseUp(e) {
+        var mup = getMouseTile(getMousePos(canvas, e));
+        if (!gameover && mdown.x == mup.x && mdown.y == mup.y) {
+            var  column_old = mup.x;
+            var row_old = mup.y;
+            if ((column_new != -1 ) && (row_new != -1) && (column_old != -1 ) && (row_old != -1)) {
+                if ((column_old == column_new) && (row_old == row_new)) {
+                    column_new = -1;
+                    row_new = -1;
+                    return;
+                }
+                if ((column_old != column_new) || (row_old != row_new)) {
+                    if (Math.abs(row_old - row_new) + Math.abs(column_old - column_new) == 1) {
+                        animationSwap(column_old, row_old, column_new, row_new);
+                        if (findMatches()) resolveMatches();
+                        else
+                            animationSwap(column_old, row_old, column_new, row_new);
+                        column_new = -1;
+                        row_new = -1;
+                        return;
+                    }
+                }
+            }
+            column_new = column_old;
+            row_new = row_old;
+        }
     }
 
     reset_button.onclick = function () {
