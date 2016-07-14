@@ -171,8 +171,13 @@ window.onload = function() {
             showmoves = false;
             context.fillStyle = "rgba(255, 165, 100, 0.9)";
             context.fillRect(1, 1, canvas.width-2, canvas.height-2);
+            context.fillStyle = "Black";
+            context.clearRect(170, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(170, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(171, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(172, 186, canvas.width-340, canvas.height-364);
+            context.strokeRect(173, 186, canvas.width-340, canvas.height-364);
             context.strokeRect(174, 186, canvas.width-340, canvas.height-364);
-            context.fillStyle = "#ffffff";
             context.font = "24px Comic Sans MS";
             textdim = context.measureText("Game Over!");
             context.fillText("Game Over!", (field_width - textdim.width)/2 + 2, field_height / 2 - 2);
